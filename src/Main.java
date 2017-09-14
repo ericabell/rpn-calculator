@@ -24,6 +24,16 @@ public class Main {
             String input = scanner1.nextLine();
 
             switch(input) {
+                case "exit":
+                    done = true;
+                    break;
+                // TODO: need to catch exception if pop isn't possible
+                case "swap":
+                    operand1 = stack.pop();
+                    operand2 = stack.pop();
+                    stack.push(operand1);
+                    stack.push(operand2);
+                    break;
                 case "+":
                     operand1 = stack.pop();
                     operand2 = stack.pop();
@@ -32,7 +42,7 @@ public class Main {
                 case "-":
                     operand1 = stack.pop();
                     operand2 = stack.pop();
-                    stack.push(operand1-operand2);
+                    stack.push(operand2-operand1);
                     break;
                 case "*":
                     operand1 = stack.pop();
@@ -42,16 +52,17 @@ public class Main {
                 case "/":
                     operand1 = stack.pop();
                     operand2 = stack.pop();
-                    stack.push(operand1/operand2);
-                    break;
-                case "exit":
-                    done = true;
+                    stack.push(operand2/operand1);
                     break;
                 default:
-                    stack.push(Double.parseDouble(input));
+                    try {
+                        stack.push(Double.parseDouble(input));
+                    } catch(NumberFormatException ex) {
+                        System.out.println("Please enter a number.");
+                    }
 
             }
-            System.out.println(stack);
+            System.out.println("Current stack: " + stack);
         }
         System.out.println("Done!");
     }
